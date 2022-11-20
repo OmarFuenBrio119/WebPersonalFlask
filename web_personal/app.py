@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -33,13 +33,24 @@ def portfolio():
                 ]
      return render_template('public/portfolio.html', projects=projects)
 
-app.route('/auth/login')
-def login():
-    return render_template('auth/login.html')
+########### RUTAS ##################
+
 
 @app.route('/auth/register')
 def register():
     return render_template('auth/register.html')
+
+@app.route('/auth/acesso')
+def acesso():
+    return render_template('auth/acesso.html')
+
+@app.route('/welcome', methods=['GET', 'POST'])
+def welcome(): 
+    email = request.form['mail']
+    password = request.form['password']
+    access = { 'email': email}
+
+    return render_template('admin/index.html', user_access=access)
 
 if __name__ == '__main__':
     app.run(debug=True)
