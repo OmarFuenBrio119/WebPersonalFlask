@@ -1,7 +1,6 @@
-from crypt import methods
 from flask import Flask, render_template, request
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, EmailField
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -40,9 +39,9 @@ def portfolio():
 ############# Formularios de WTF ###############
 
 class LoginForm(FlaskForm):
-    username = StringField('Username')
+    username = EmailField('Username')
     password = PasswordField('Password')
-    submit = SubmitField('Login')
+    submit = SubmitField('Ingresar')
 
 ########### RUTAS Login ##################
 
@@ -53,7 +52,8 @@ def register():
 
 @app.route('/auth/acesso')
 def acesso():
-    return render_template('auth/acesso.html')
+    form = LoginForm()
+    return render_template('auth/acesso.html', form=form)
 
 @app.route('/welcome', methods=['GET', 'POST'])
 def welcome(): 
