@@ -9,14 +9,16 @@ from db.db_connection import get_connection
 ###### impots apps #######33
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
+app.config['ENV'] = 'development'
 
-#   @app.route('/usuarios')
-#   def usuarios():
-#      connection = get_connection
-#     with connection.cursor() as cursor:
-#        cursor.execute('SELECT * FROM users')
-#       usuarios = cursor.fetchall()
-#      return str(usuarios)
+
+@app.route('/users')
+def users():
+      connection = get_connection
+      with connection.cursor() as cursor:
+         cursor.execute('SELECT * FROM users')
+         users = cursor.fetchall()
+      return str(users)
 
 #############  Registros de Apps ########################
 

@@ -13,11 +13,11 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    name = StringField('Nombre')
-    last_name = StringField('Apellidos')
-    email = EmailField('Correo')
-    password = PasswordField('Contraseña')
-    phone = IntegerField('Telefono')
+    name = StringField('Nombre', validators=[DataRequired()])
+    last_name = StringField('Apellidos', validators=[DataRequired()])
+    email = EmailField('Correo', validators=[DataRequired(), Email()])
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    phone = IntegerField('Telefono', validators=[DataRequired()])
     is_married = RadioField('Estado Civil', choices=[('True', 'Casado'),('False', 'Soltero')])
     gender = SelectField('Genero', choices=[('male', 'Masculino'),('female', 'Femenino'),('other', 'Otro')])
     submit = SubmitField('Registrar')
