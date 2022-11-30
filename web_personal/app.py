@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = 'secret'
 app.register_blueprint(home_blueprint)
 app.register_blueprint(auth_blueprint, url_prefix='/auth')
 app.register_blueprint(error_pages_blueprint)
-app.register_blueprint(project_blueprint)
+app.register_blueprint(project_blueprint, url_prefix='/project')
 
 if __name__ == '__main__':
     app.run(debug=True)
