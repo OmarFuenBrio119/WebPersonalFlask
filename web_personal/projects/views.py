@@ -1,6 +1,9 @@
 #### imports ####
 from flask import render_template, request, Blueprint
 
+from .forms import NewProjectForm
+from .image_handler import add_image
+
 project_blueprint = Blueprint('project', __name__)
 
 #### localhost:5000/projects/list ####
@@ -47,9 +50,20 @@ def show(project_id=None):
     return render_template('project/show.html', project_id=project_id)
     
 ########## TODO: Create New Project ##########
-@project_blueprint.route('/new')
+@project_blueprint.route('/new', methods=['GET', 'POST'])
 def new():
-    return render_template('project/new.html')
+    form = NewProjectForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        url = form.url.data
+        image = add_image(form.image.data)
+
+        return str([name, description, url, image])
+
+
+    return render_template('project/new.html', form=form)
 
 ########## TODO: Update a Project ##########
 @project_blueprint.route('/<project_id>/edit')
